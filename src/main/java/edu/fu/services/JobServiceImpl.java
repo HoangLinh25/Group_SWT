@@ -62,21 +62,21 @@ public class JobServiceImpl implements JobService {
 
     private Job fromDto(JobRequest jobRequest) {
         Job job = new Job();
-        job.setDeadline(jobRequest.getDeadline());
-        job.setMinSalary(jobRequest.getMinSalary());
-
-        if (jobRequest.getDepartmentId() != null) {
-            Department department = new Department();
-            department.setId(jobRequest.getDepartmentId());
-
-            job.setDepartment(department);
-        }
-
 
         job.setTitle(jobRequest.getTitle());
-        job.setStatus(JobStatus.DRAFT.toString());
+        job.setDeadline(jobRequest.getDeadline());
+        job.setMinSalary(jobRequest.getMinSalary());
         job.setUtmMedium(jobRequest.getUtmMedium());
         job.setUtmSource(jobRequest.getUtmSource());
+        job.setStatus(JobStatus.DRAFT.name());
+
+        if (jobRequest.getDepartmentId() != null) {
+            job.setDepartment(
+                    Department.builder()
+                            .id(jobRequest.getDepartmentId())
+                            .build()
+            );
+        }
 
         return job;
     }

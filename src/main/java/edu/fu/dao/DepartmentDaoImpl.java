@@ -43,10 +43,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
             return department;
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();  // NullPointerException
-            }
         }
     }
 
@@ -64,11 +60,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
             return query.getResultList();
         } catch (Exception ex) {
-            throw new RuntimeException(ex.getMessage());
-        } finally {
-            if (session != null) {
-                session.close();  // NullPointerException
-            }
+
         }
     }
 
@@ -87,8 +79,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
             return department;
 
         } catch (Exception e) {
-            transaction.rollback();
-            throw new RuntimeException(e);
+
         }
 
     }
